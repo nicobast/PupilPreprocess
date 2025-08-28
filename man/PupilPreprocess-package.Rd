@@ -4,9 +4,9 @@
 \name{PupilPreprocess-package}
 \alias{PupilPreprocess}
 \alias{PupilPreprocess-package}
-\title{PupilPreprocess: What the Package Does (One Line, Title Case)}
+\title{PupilPreprocess: Pupil data preprocessing}
 \description{
-What the package does (one paragraph).
+preprocessing of pupil data from eye-tracker data streams.
 }
 \seealso{
 Useful links:
@@ -17,7 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com}
+\strong{Maintainer}: Nico Bast \email{nbast@med.uni-frankfurt.de}
 
 }
 \keyword{internal}

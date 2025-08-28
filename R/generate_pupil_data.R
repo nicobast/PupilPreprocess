@@ -9,7 +9,7 @@
 #' @param  introduce_NA simulate missing data
 #' @param  NA_proportion proportion of data to set to missing
 #' @param  start_value_pupil_size pupil size start value in mm.
-#' @param  drift drift in pupil signal per sample in mm
+#' @param  drift drift in pupil signal per response in mm
 #' @return sampled pupil data.
 #' @examples
 #' to be done
@@ -22,7 +22,7 @@ generate_pupil_data<-function(
   introduce_NA=T,
   NA_proportion=0.2,
   start_value_pupil_size=4,
-  drift=0.0001
+  drift=0.01
   ){
 
   #translate options to required values
