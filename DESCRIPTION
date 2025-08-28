@@ -1,9 +1,9 @@
 Package: PupilPreprocess
-Title: What the Package Does (One Line, Title Case)
+Title: Pupil data preprocessing
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+    person("Nico", "Bast", , "nbast@med.uni-frankfurt.de", role = c("aut", "cre"))
+Description: preprocessing of pupil data from eye-tracker data streams.
 License: file LICENSE
 URL: https://github.com/nicobast/PupilPreprocess
 BugReports: https://github.com/nicobast/PupilPreprocess/issues

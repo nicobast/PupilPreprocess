@@ -18,8 +18,8 @@ blink_correction <- function(signal,
                       sampling_rate=300) {
 
   #define settings for blink correction algorithm based on sampling rate
-  lower_bound_samples<-round(lower_blink_range/(1000/sampling_rate))
-  upper_bound_samples<-round(upper_blink_range/(1000/sampling_rate))
+  lower_threshold<-round(lower_blink_range/(1000/sampling_rate))
+  upper_threshold<-round(upper_blink_range/(1000/sampling_rate))
   cut_samples<-round(cut_blink_data/(1000/sampling_rate))
   samples_before<-cut_samples
   samples_after<-cut_samples
