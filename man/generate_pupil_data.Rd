@@ -6,19 +6,17 @@
 \usage{
 generate_pupil_data(
   sampling_rate = 300,
-  phase_length_range = c(round(sampling_rate/10), round(sampling_rate/5)),
+  phase_length = round(sampling_rate/2),
   number_of_responses = 100,
-  mean_response_magnitude = 0.1,
+  mean_response_magnitude = 0.05,
   introduce_NA = T,
   NA_proportion = 0.2,
   start_value_pupil_size = 4,
-  drift = 1e-04
+  drift = -0.002
 )
 }
 \arguments{
 \item{sampling_rate}{sampling rate of the sampled data.}
-
-\item{phase_length_range}{range of pupil response durations to sample.}
 
 \item{number_of_responses}{number of pupil responses to sample.}
 
@@ -30,7 +28,9 @@ generate_pupil_data(
 
 \item{start_value_pupil_size}{pupil size start value in mm.}
 
-\item{drift}{drift in pupil signal per sample in mm}
+\item{drift}{drift in pupil signal per response in mm}
+
+\item{phase_length_range}{range of pupil response durations to sample.}
 }
 \value{
 sampled pupil data.
@@ -39,5 +39,5 @@ sampled pupil data.
 generates a vector in the shape of pupil data.
 }
 \examples{
-to be done
+#to be done
 }

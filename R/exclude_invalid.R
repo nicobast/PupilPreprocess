@@ -10,13 +10,13 @@
 #' @param  validity_threshold integer as threshold to validate pupil data.
 #' @return pupil data corrected for invalid data that is outside plausible range (optional: and above validity threshold).
 #' @examples
-#' to be done
+#' #to be done
 #' @export
 exclude_invalid <- function(
     pupil_diameter,
     lower_bound_pupil_diameter=2,
     upper_bound_pupil_diameter=8,
-    check_raw_validity=TRUE,
+    check_raw_validity=FALSE,
     validity_data,
     validity_threshold=2 #set between 1 (aggressive) to 4 (very conservative) - specific to TOBII TX-300
 ){

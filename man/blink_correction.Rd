@@ -30,5 +30,5 @@ signal cleared of potential blink data. These are set to NA.
 This function corrects a numeric vector of pupil data of potential eye blinks.
 }
 \examples{
-to be done
+#to be done
 }

@@ -2,27 +2,37 @@
 #'
 #' This function estimates speed of pupil size change based on timestamp data
 #' and excludes data that is outside defined ranges. Detected speed outlier are set to NA.
+#' Consider time jumps in timestamp vector. Speed change is estimate forward and backwards.
 #'
-#' @param signal signal a numeric vector, typically of raw pupillometry data.
-#' @param  lower_blink_range lower bound of blinks in ms. Default 25ms.
-#' @param  upper_blink_range upper bound of blinks in ms. Default 250ms.
-#' @param  cut_blink_data data to cut before and after blinks in ms. Default 25ms
-#' @param  sampling_rate eye-tracker sampling rate in Hz. Default 300Hz
-#' @return signal cleared of potential blink data. These are set to NA.
+#' @param signal signal as a numeric vector, typically of raw pupillometry data.
+#' @param timestamp timestamp in the raw data associated with signal. Works independently of the resolution of the timestamp
+#' @param  MAD_constant constant as threshold to be used to define outlier. Default 3.
+#' @return signal cleared of speed outliers. These are set to NA.
 #' @examples
-#' to be done
+#' #to be done
+#' @importFrom stats median rnorm
 #' @export
-exclude_speed_outlier <- function()
-{}
+exclude_speed_outlier <- function(
+  signal,
+  timestamp,
+  MAD_constant=3
+  )
+{
+#speed estimation
+signal.speed1<-diff(signal)/diff(timestamp) #compared to last
+signal.speed2<-diff(rev(signal))/diff(rev(timestamp)) #compared to next
+signal.speed1<-c(NA,signal.speed1)
+signal.speed2<-c(rev(signal.speed2),NA)
+signal.speed<-pmax(signal.speed1,signal.speed2,na.rm=T)
 
+#median absolute deviation of speed
+signal.speed.med<-median(signal.speed,na.rm=T)
+signal.mad<-median(abs(signal.speed-signal.speed.med),na.rm = T)
+signal.treshold.speed<-signal.speed.med+MAD_constant*signal.mad
+#treshold.speed units are mm/microsecond
 
-#take into account time jumps with Remotetimestamps
-#maximum change in pd compared to last and next pd measurement
+#exclude outlier
+signal<-ifelse(abs(signal.speed)>signal.treshold.speed,NA,signal)
+return(signal)
+}
 
-#Left speed estimation
-pl.speed1<-diff(pl)/diff(RemoteTime) #compared to last
-pl.speed2<-diff(rev(pl))/diff(rev(RemoteTime)) #compared to next
-pl.speed1<-c(NA,pl.speed1)
-pl.speed2<-c(rev(pl.speed2),NA)
-pl.speed<-pmax(pl.speed1,pl.speed2,na.rm=T)
-rm(pl.speed1,pl.speed2)

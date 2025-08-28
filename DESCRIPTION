@@ -7,6 +7,8 @@ Description: preprocessing of pupil data from eye-tracker data streams.
 License: file LICENSE
 URL: https://github.com/nicobast/PupilPreprocess
 BugReports: https://github.com/nicobast/PupilPreprocess/issues
+Imports:
+    stats
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

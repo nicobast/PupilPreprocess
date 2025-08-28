@@ -9,7 +9,7 @@
 #' @param  sampling_rate eye-tracker sampling rate in Hz. Default 300Hz
 #' @return signal cleared of potential blink data. These are set to NA.
 #' @examples
-#' to be done
+#' #to be done
 #' @export
 blink_correction <- function(signal,
                       lower_blink_range=75,
