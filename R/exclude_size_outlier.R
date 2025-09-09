@@ -10,7 +10,7 @@
 #' @param timestamp timestamp in the raw data associated with signal. Expects millisecond format timestamps
 #' @param MAD_constant constant as threshold to be used to define outlier. Default 3.
 #' @param smooth_length length of linear imputation to be applied before outlier exclusion
-#' @return signal cleared of speed outliers. These are set to NA.
+#' @return signal cleared of size outliers. These are set to NA.
 #' @examples
 #' #to be done
 #' @importFrom zoo na.approx

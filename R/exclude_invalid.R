@@ -1,6 +1,6 @@
 #' exclude invalid data
 #'
-#' This function exclude invalid pupillometry data.
+#' This function exclude invalid pupillometry data. Can also check for validity values as provided by Tobii raw data stream
 #'
 #' @param pupil_diameter vector of pupil data as numeric.
 #' @param  lower_bound_pupil_diameter lower bound of plausible pupil diameter.
