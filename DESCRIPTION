@@ -8,7 +8,8 @@ License: file LICENSE
 URL: https://github.com/nicobast/PupilPreprocess
 BugReports: https://github.com/nicobast/PupilPreprocess/issues
 Imports:
-    stats
+    stats,
+    zoo
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

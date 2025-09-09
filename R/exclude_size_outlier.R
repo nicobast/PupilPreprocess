@@ -29,14 +29,14 @@ smooth.size<-ifelse(is.even(smooth.size)==T,smooth.size+1,smooth.size) #make sur
 #impute missing values with interpolation
 signal.smooth<-na.approx(signal,na.rm=F,rule=2)
 #run smooth algo only if not all elements == NA
-if(sum(!is.na(signal.smooth))!=0){signal.smooth<-runmed(signal.smooth,k=smooth.size)}
+if(sum(!is.na(signal.smooth))!=0){signal.smooth<-stats::runmed(signal.smooth,k=smooth.size)}
 signal.mad<-median(abs(signal-signal.smooth),na.rm=T)
 #FIRST pass: correct pupil dilation for size outliers
 signal.pass1<-ifelse((signal>signal.smooth+MAD_constant*signal.mad)|(signal<signal.smooth-MAD_constant*signal.mad),NA,signal)
 #impute missing values with interpolation
 signal.smooth<-na.approx(signal.pass1,na.rm=F,rule=2)
 #run smooth algo only if not all elements == NA
-if(sum(!is.na(signal.smooth))!=0){signal.smooth<-runmed(signal.smooth,k=smooth.size)}
+if(sum(!is.na(signal.smooth))!=0){signal.smooth<-stats::runmed(signal.smooth,k=smooth.size)}
 signal.mad<-median(abs(signal-signal.smooth),na.rm=T)
 #SECOND pass: correct pupil dilation for size outliers
 signal.pass2<-ifelse((signal>signal.smooth+MAD_constant*signal.mad)|(signal<signal.smooth-MAD_constant*signal.mad),NA,signal)

@@ -6,7 +6,7 @@
 \usage{
 generate_pupil_data(
   sampling_rate = 300,
-  phase_length = round(sampling_rate/2),
+  phase_duration = 1,
   number_of_responses = 100,
   mean_response_magnitude = 0.05,
   introduce_NA = T,
@@ -17,6 +17,8 @@ generate_pupil_data(
 }
 \arguments{
 \item{sampling_rate}{sampling rate of the sampled data.}
+
+\item{phase_duration}{pupil response durations in seconds.}
 
 \item{number_of_responses}{number of pupil responses to sample.}
 
@@ -29,8 +31,6 @@ generate_pupil_data(
 \item{start_value_pupil_size}{pupil size start value in mm.}
 
 \item{drift}{drift in pupil signal per response in mm}
-
-\item{phase_length_range}{range of pupil response durations to sample.}
 }
 \value{
 sampled pupil data.

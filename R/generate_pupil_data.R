@@ -3,7 +3,7 @@
 #' generates a vector in the shape of pupil data.
 #'
 #' @param sampling_rate sampling rate of the sampled data.
-#' @param  phase_length_range range of pupil response durations to sample.
+#' @param  phase_duration pupil response durations in seconds.
 #' @param  number_of_responses number of pupil responses to sample.
 #' @param  mean_response_magnitude mean pupil response magnitude in mm
 #' @param  introduce_NA simulate missing data
@@ -16,7 +16,7 @@
 #' @export
 generate_pupil_data<-function(
   sampling_rate=300,
-  phase_length=round(sampling_rate/2),
+  phase_duration=1,
   number_of_responses=100,
   mean_response_magnitude=0.05,
   introduce_NA=T,
@@ -26,7 +26,8 @@ generate_pupil_data<-function(
   ){
 
   #translate options to required values
-  phase_length<-sample(round(abs(rnorm(100))*phase_length)+2,number_of_responses,replace=T)
+  phase_length=round(sampling_rate*phase_duration)
+  phase_lengths<-sample(round(abs(rnorm(100))*phase_length)+2,number_of_responses,replace=T)
 
   change<-rnorm(number_of_responses+1)*mean_response_magnitude
   difference<-diff(change)
@@ -71,7 +72,7 @@ generate_pupil_data<-function(
     make_wave(from = x, to = y, n_up = z)},
     x=start_values,
     y=end_values,
-    z=phase_length))
+    z=phase_lengths))
 
   plot(test_pupil_data)
 
