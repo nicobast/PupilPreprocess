@@ -26,3 +26,9 @@ install.packages("remotes")
 
 # Install the package
 remotes::install_github("nicobast/PupilPreprocess")
+
+#After installation for usage
+require(PupilPreprocess)
+
+#documentation can be found here
+?`PupilPreprocess-package`
