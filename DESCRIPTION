@@ -1,6 +1,6 @@
 Package: PupilPreprocess
 Title: Pupil data preprocessing
-Version: 0.0.0.9000
+Version: 0.1.0.0000
 Authors@R: 
     person("Nico", "Bast", , "nbast@med.uni-frankfurt.de", role = c("aut", "cre"))
 Description: preprocessing of pupil data from eye-tracker data streams.

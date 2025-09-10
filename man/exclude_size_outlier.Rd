@@ -16,7 +16,7 @@ exclude_size_outlier(signal, timestamp, MAD_constant = 3, smooth_length = 150)
 \item{smooth_length}{length of linear imputation to be applied before outlier exclusion}
 }
 \value{
-signal cleared of speed outliers. These are set to NA.
+signal cleared of size outliers. These are set to NA.
 }
 \description{
 This function estimates the median absolute deviation of pupil size from a trend line.

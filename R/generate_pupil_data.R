@@ -3,13 +3,15 @@
 #' generates a vector in the shape of pupil data.
 #'
 #' @param sampling_rate sampling rate of the sampled data.
-#' @param  phase_duration pupil response durations in seconds.
+#' @param  phase_duration pupil response duration in seconds.
 #' @param  number_of_responses number of pupil responses to sample.
 #' @param  mean_response_magnitude mean pupil response magnitude in mm
-#' @param  introduce_NA simulate missing data
+#' @param  introduce_NA TRUE or FALSE to simulate missing data. Introdcues random missings from 1 to 100 samples
 #' @param  NA_proportion proportion of data to set to missing
+#' @param  introduce_noise TRUE or FALSE to introduce data noise.
+#' @param  noise_magnitude magnitude of noise as fraction of standard deviation.
 #' @param  start_value_pupil_size pupil size start value in mm.
-#' @param  drift drift in pupil signal per response in mm
+#' @param  drift downward drift in pupil signal per response in mm
 #' @return sampled pupil data.
 #' @examples
 #' #to be done
@@ -21,6 +23,8 @@ generate_pupil_data<-function(
   mean_response_magnitude=0.05,
   introduce_NA=T,
   NA_proportion=0.2,
+  introduce_noise=T,
+  noise_magnitude=0.3,
   start_value_pupil_size=4,
   drift=-0.002
   ){
@@ -36,7 +40,7 @@ generate_pupil_data<-function(
   end_values<-c(start_values[2:length(start_values)],start_value_pupil_size)
 
   # Easing function for shaping the ramp
-  ease_fn <- function(t, mode = "linear", power = 2L) {
+  ease_fn <- function(t, mode = "ease-in-out", power = 2L) {
     stopifnot(all(t >= 0 & t <= 1))
     mode <- match.arg(mode, c("linear","ease-in","ease-out","ease-in-out","cosine","sine"))
     switch(
@@ -74,8 +78,6 @@ generate_pupil_data<-function(
     y=end_values,
     z=phase_lengths))
 
-  plot(test_pupil_data)
-
   #introduce NA
   if(introduce_NA){
   NA_samples<-NA_proportion*length(test_pupil_data)
@@ -89,5 +91,13 @@ generate_pupil_data<-function(
   test_pupil_data[NA_sequences]<-NA
   }
 
+  #introduce noise - as random noise of fraction of standard deviation
+  if(introduce_noise){
+    test_pupil_data<-test_pupil_data+(rnorm(length(test_pupil_data),
+                                        sd=stats::sd(test_pupil_data,na.rm=T)*noise_magnitude))
+
+  }
+
+  plot(test_pupil_data)
   return(test_pupil_data)
 }

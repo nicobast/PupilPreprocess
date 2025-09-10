@@ -30,7 +30,7 @@ exclude_invalid(
 pupil data corrected for invalid data that is outside plausible range (optional: and above validity threshold).
 }
 \description{
-This function exclude invalid pupillometry data.
+This function exclude invalid pupillometry data. Can also check for validity values as provided by Tobii raw data stream
 }
 \examples{
 #to be done

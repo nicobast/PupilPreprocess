@@ -11,6 +11,8 @@ generate_pupil_data(
   mean_response_magnitude = 0.05,
   introduce_NA = T,
   NA_proportion = 0.2,
+  introduce_noise = T,
+  noise_magnitude = 0.3,
   start_value_pupil_size = 4,
   drift = -0.002
 )
@@ -18,19 +20,23 @@ generate_pupil_data(
 \arguments{
 \item{sampling_rate}{sampling rate of the sampled data.}
 
-\item{phase_duration}{pupil response durations in seconds.}
+\item{phase_duration}{pupil response duration in seconds.}
 
 \item{number_of_responses}{number of pupil responses to sample.}
 
 \item{mean_response_magnitude}{mean pupil response magnitude in mm}
 
-\item{introduce_NA}{simulate missing data}
+\item{introduce_NA}{TRUE or FALSE to simulate missing data. Introdcues random missings from 1 to 100 samples}
 
 \item{NA_proportion}{proportion of data to set to missing}
 
+\item{introduce_noise}{TRUE or FALSE to introduce data noise.}
+
+\item{noise_magnitude}{magnitude of noise as fraction of standard deviation.}
+
 \item{start_value_pupil_size}{pupil size start value in mm.}
 
-\item{drift}{drift in pupil signal per response in mm}
+\item{drift}{downward drift in pupil signal per response in mm}
 }
 \value{
 sampled pupil data.
