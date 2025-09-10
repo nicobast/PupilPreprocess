@@ -13,7 +13,7 @@ R package for automated pupil data presprocessing. Provide a wrapper function pu
 
 Package also comes with a generate_pupil_data() function that generates random pupil response data including missings and measurement noise.
 
-See function documentation in R for further insights on setable parameters per function.
+See function documentation in R for further insights on parameters per function.
 ---
 
 ## Installation
