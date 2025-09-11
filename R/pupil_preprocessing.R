@@ -62,9 +62,9 @@ pupil_preprocessing<-function(
 
   #define variables from raw eye tracking data
   if(provide_variable_names){
-    Left_Diameter<-eye_tracking_raw[[left_diameter_name]]
-    Right_Diameter<-eye_tracking_raw[[right_diameter_name]]
-    RemoteTime<-eye_tracking_raw[[timestamp_name]] #timestamp resolution in milliseconds
+    Left_Diameter<-as.vector(eye_tracking_raw[[left_diameter_name]])
+    Right_Diameter<-as.vector(eye_tracking_raw[[right_diameter_name]])
+    RemoteTime<-as.vector(eye_tracking_raw[[timestamp_name]]) #timestamp resolution in milliseconds
   }
 
   if(!provide_variable_names){
