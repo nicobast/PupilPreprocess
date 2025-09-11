@@ -3,7 +3,7 @@
 R package for automated pupil data presprocessing. Provide a wrapper function pupil_preprocessing() that does all preprocessing steps in one go. Also provide single functions for each preprocessing step, which entail:
 
  1. exclude invalid data - exclude_invalid()
- 2. exclude data around blinks - blink_correciton()
+ 2. exclude data around blinks - blink_correction()
  3. exclude dilation speed outlier - exclude_speed_outlier()
  4. exclude dilation size outlier - exclude_size_outlier()
  5. sparsity filter - exclude islands of data around large gaps missings
@@ -13,7 +13,7 @@ R package for automated pupil data presprocessing. Provide a wrapper function pu
 
 Package also comes with a generate_pupil_data() function that generates random pupil response data including missings and measurement noise.
 
-See function documentation in R for further insights on setable parameters per function.
+See function documentation in R for further insights on parameters per function.
 ---
 
 ## Installation
