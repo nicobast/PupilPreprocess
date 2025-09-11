@@ -11,7 +11,11 @@
 #' 7. interpolate gaps of missing data - missing_interpolation()
 #' 8. calculate mean of both eyes
 #'
-#' @param eye_tracking_raw raw pupil data with estimates for both eyes, timestamps, and optional validity estimates.
+#' @param eye_tracking_raw raw pupil data with estimates for both eyes, timestamps, and optional validity estimates. Expects the following variable names: left_pupil_diameter, right_pupil_diameter, timestamp. Otherwise provide names with provide_variable_names option.
+#' @param provide_variable_names provide variable names as string for left_diameter, right_diameter, timestamp as provided by the raw data stream.
+#' @param left_diameter_name if provide_variable_names=T, provide name as string
+#' @param right_diameter_name if provide_variable_names=T, provide name as string
+#' @param timestamp_name if provide_variable_names=T, provide name as string
 #' @param diagnostic_output provide diagnostic output that shows excluded data per preprocessing step.
 #' @param lower_bound_pupil_diameter smallest pupil size that is considered valid in mm, default = 2.
 #' @param upper_bound_pupil_diameter lergest pupil size that is considered valid in mm, default = 8.
@@ -32,6 +36,10 @@
 #' @export
 pupil_preprocessing<-function(
     eye_tracking_raw,
+    provide_variable_names=F,
+    left_diameter_name=NA,
+    right_diameter_name=NA,
+    timestamp_name=NA,
     diagnostic_output=T,
     lower_bound_pupil_diameter=2, #in mm
     upper_bound_pupil_diameter=8, #in mm
@@ -53,9 +61,17 @@ pupil_preprocessing<-function(
   #eye_tracking_raw<-sample_dataframe
 
   #define variables from raw eye tracking data
+  if(provide_variable_names){
+    Left_Diameter<-eye_tracking_raw[[left_diameter_name]]
+    Right_Diameter<-eye_tracking_raw[[right_diameter_name]]
+    RemoteTime<-eye_tracking_raw[[timestamp_name]] #timestamp resolution in milliseconds
+  }
+
+  if(!provide_variable_names){
   Left_Diameter<-eye_tracking_raw$left_pupil_diameter
   Right_Diameter<-eye_tracking_raw$right_pupil_diameter
   RemoteTime<-eye_tracking_raw$timestamp #timestamp resolution in milliseconds
+  }
 
   if(check_raw_validity){
     Left_Validity<-eye_tracking_raw$left_pupil_validity

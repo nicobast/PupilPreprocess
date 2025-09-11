@@ -6,6 +6,10 @@
 \usage{
 pupil_preprocessing(
   eye_tracking_raw,
+  provide_variable_names = F,
+  left_diameter_name = NA,
+  right_diameter_name = NA,
+  timestamp_name = NA,
   diagnostic_output = T,
   lower_bound_pupil_diameter = 2,
   upper_bound_pupil_diameter = 8,
@@ -23,7 +27,15 @@ pupil_preprocessing(
 )
 }
 \arguments{
-\item{eye_tracking_raw}{raw pupil data with estimates for both eyes, timestamps, and optional validity estimates.}
+\item{eye_tracking_raw}{raw pupil data with estimates for both eyes, timestamps, and optional validity estimates. Expects the following variable names: left_pupil_diameter, right_pupil_diameter, timestamp. Otherwise provide names with provide_variable_names option.}
+
+\item{provide_variable_names}{provide variable names as string for left_diameter, right_diameter, timestamp as provided by the raw data stream.}
+
+\item{left_diameter_name}{if provide_variable_names=T, provide name as string}
+
+\item{right_diameter_name}{if provide_variable_names=T, provide name as string}
+
+\item{timestamp_name}{if provide_variable_names=T, provide name as string}
 
 \item{diagnostic_output}{provide diagnostic output that shows excluded data per preprocessing step.}
 
