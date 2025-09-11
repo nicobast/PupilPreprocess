@@ -18,12 +18,13 @@ pupil_preprocessing(
   lower_blink_range = 75,
   upper_blink_range = 250,
   cut_blink_data = 25,
-  sampling_rate = 300,
+  sampling_rate = NA,
   MAD_constant = 3,
   smooth_length = 150,
   NA_gap_length = 75,
   sparsity_filter_island_length = 50,
-  interpolation_length = 300
+  interpolation_length = 300,
+  timestamp_scaling = 1
 )
 }
 \arguments{
@@ -35,7 +36,7 @@ pupil_preprocessing(
 
 \item{right_diameter_name}{if provide_variable_names=T, provide name as string}
 
-\item{timestamp_name}{if provide_variable_names=T, provide name as string}
+\item{timestamp_name}{if provide_variable_names=T, provide name as string. timestamp data is expected in millisecond format.}
 
 \item{diagnostic_output}{provide diagnostic output that shows excluded data per preprocessing step.}
 
@@ -53,7 +54,7 @@ pupil_preprocessing(
 
 \item{cut_blink_data}{data to cut before and after blinks in ms, default 25ms.}
 
-\item{sampling_rate}{eye-tracker sampling rate in Hz, default 300Hz.}
+\item{sampling_rate}{eye-tracker sampling rate in Hz, is estimated from timetamps by default, but can be provided explicitly here}
 
 \item{MAD_constant}{Mean Average Deviation constant as threshold of deviation from mean to be used to define outlier. Default 3.}
 
@@ -64,16 +65,18 @@ pupil_preprocessing(
 \item{sparsity_filter_island_length}{valid sections shorter than this in ms are rejected and thus set to NA.}
 
 \item{interpolation_length}{gaps shorter than this in millisecond that will be linearly interpolated.}
+
+\item{timestamp_scaling}{numeric. Timestamp data in eye-tracking_raw is expected in millisecond format. the timestamp_scaling allows to adjust, if different timetamp resolutions are provided: second format: timestamp_scaling = 1000, microsecond format: timestamp_scaling = 0.001, default is 1 as expected millisecond format.}
 }
 \value{
 returns preprocessed pupil size estimate as mean of both eyes.
 }
 \description{
 wrapper function that takes pupil dilation raw data of both eye and preprocesses into a cleaned pupil size of both eye
-Includes the following steps that are each avaialble as separate functions:
+Includes the following steps that are each available as separate functions:
 \enumerate{
 \item exclude invalid data - exclude_invalid()
-\item exclude data around blinks - blink_correciton()
+\item exclude data around blinks - blink_correction()
 \item exclude dilation speed outlier - exclude_speed_outlier()
 \item exclude dilation size outlier - exclude_size_outlier()
 \item sparsity filter - exclude islands of data around large gaps of missings

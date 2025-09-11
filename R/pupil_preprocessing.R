@@ -1,9 +1,9 @@
 #' pupil preprocessing
 #'
 #' wrapper function that takes pupil dilation raw data of both eye and preprocesses into a cleaned pupil size of both eye
-#' Includes the following steps that are each avaialble as separate functions:
+#' Includes the following steps that are each available as separate functions:
 #' 1. exclude invalid data - exclude_invalid()
-#' 2. exclude data around blinks - blink_correciton()
+#' 2. exclude data around blinks - blink_correction()
 #' 3. exclude dilation speed outlier - exclude_speed_outlier()
 #' 4. exclude dilation size outlier - exclude_size_outlier()
 #' 5. sparsity filter - exclude islands of data around large gaps of missings
@@ -15,7 +15,7 @@
 #' @param provide_variable_names provide variable names as string for left_diameter, right_diameter, timestamp as provided by the raw data stream.
 #' @param left_diameter_name if provide_variable_names=T, provide name as string
 #' @param right_diameter_name if provide_variable_names=T, provide name as string
-#' @param timestamp_name if provide_variable_names=T, provide name as string
+#' @param timestamp_name if provide_variable_names=T, provide name as string. timestamp data is expected in millisecond format.
 #' @param diagnostic_output provide diagnostic output that shows excluded data per preprocessing step.
 #' @param lower_bound_pupil_diameter smallest pupil size that is considered valid in mm, default = 2.
 #' @param upper_bound_pupil_diameter lergest pupil size that is considered valid in mm, default = 8.
@@ -24,12 +24,13 @@
 #' @param lower_blink_range shortest duration that is considered a blink in milliseconds, default = 75.
 #' @param upper_blink_range longest duration that is considered a blink in milliseconds, default = 250.
 #' @param cut_blink_data data to cut before and after blinks in ms, default 25ms.
-#' @param sampling_rate eye-tracker sampling rate in Hz, default 300Hz.
+#' @param sampling_rate eye-tracker sampling rate in Hz, is estimated from timetamps by default, but can be provided explicitly here
 #' @param MAD_constant Mean Average Deviation constant as threshold of deviation from mean to be used to define outlier. Default 3.
 #' @param smooth_length length of linear imputation to be applied before outlier exclusion.
 #' @param NA_gap_length gaps >= this length in milliseconds are considered "big" and define split points in the sparsity filtering.
 #' @param sparsity_filter_island_length valid sections shorter than this in ms are rejected and thus set to NA.
 #' @param interpolation_length gaps shorter than this in millisecond that will be linearly interpolated.
+#' @param timestamp_scaling numeric. Timestamp data in eye-tracking_raw is expected in millisecond format. the timestamp_scaling allows to adjust, if different timetamp resolutions are provided: second format: timestamp_scaling = 1000, microsecond format: timestamp_scaling = 0.001, default is 1 as expected millisecond format.
 #' @return returns preprocessed pupil size estimate as mean of both eyes.
 #' @examples
 #' #to be done
@@ -48,17 +49,17 @@ pupil_preprocessing<-function(
     lower_blink_range=75,
     upper_blink_range=250,
     cut_blink_data=25,
-    sampling_rate=300,
+    sampling_rate=NA,
     MAD_constant=3,
     smooth_length=150, #measured in ms - linear interpolation before smoothing
     NA_gap_length=75, #NA sequences longer than X to consider in sparsity filter
     sparsity_filter_island_length=50, #in ms - islands of data to remove in sparsity filter
-    interpolation_length=300 # measured in ms - NA inteprolation
+    interpolation_length=300, # measured in ms - NA inteprolation
+    timestamp_scaling=1
     ){
 
   #TODO:
   #diagnostic procedure
-  #eye_tracking_raw<-sample_dataframe
 
   #define variables from raw eye tracking data
   if(provide_variable_names){
@@ -76,6 +77,13 @@ pupil_preprocessing<-function(
   if(check_raw_validity){
     Left_Validity<-eye_tracking_raw$left_pupil_validity
     Right_Validity<-eye_tracking_raw$right_pupil_validity}
+
+  ##estimate sampling rate
+  if(is.na(sampling_rate)){
+  sampling_rate<-round(1000/median(diff(RemoteTime),na.rm=T)*timestamp_scaling)
+  if(diagnostic_output){
+    print(paste('estimated sampling rate:',sampling_rate,'Hz'))}
+  }
 
   ###CORE PREPROCESSING:
 
